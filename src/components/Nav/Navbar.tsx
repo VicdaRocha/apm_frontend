@@ -1,26 +1,25 @@
 import { Link, useLocation } from 'react-router-dom';
-import Box from '@mui/material/Box';
-import Drawer from '@mui/material/Drawer';
+import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
 import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
 import CssBaseline from '@mui/material/CssBaseline';
-import Toolbar from '@mui/material/Toolbar';
-import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import Divider from '@mui/material/Divider';
-import ListItem from '@mui/material/ListItem';
+import Drawer from '@mui/material/Drawer';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+import List from '@mui/material/List';
 import ListItemButton from '@mui/material/ListItemButton';
-import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded';
 import AutoStoriesRoundedIcon from '@mui/icons-material/AutoStoriesRounded';
-import AddBoxRoundedIcon from '@mui/icons-material/AddBoxRounded';
+import MyListItem from './List/MyListItem.tsx';
+import MyListItemIcon from './List/MyListItemIcon.tsx';
+import { ReactNode } from 'react';
 
-const drawerWidth = 240;
+export default function Navbar(props: { drawerWidth: number, content: ReactNode }) {
 
-export default function Navbar() {
-
-    const location = useLocation();
-    const path = location.pathname;
+    const { drawerWidth, content } = props;
+    const path = useLocation().pathname;
 
   return (
     <Box sx={{ display: 'flex' }}>
@@ -35,7 +34,7 @@ export default function Navbar() {
       <Drawer
         variant="permanent"
         sx={{
-          width: drawerWidth,
+          width: {drawerWidth},
           flexShrink: 0,
           [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
         }}
@@ -43,48 +42,37 @@ export default function Navbar() {
         <Toolbar />
         <Box sx={{ overflow: 'auto' }}>
           <List>
-            <ListItem>
-                <ListItemButton component={Link} to="" selected={"" === path}>
-                    <ListItemIcon>
+            <MyListItem>
+                <ListItemButton component={Link} to="/home" selected={"/home" === path}>
+                    <MyListItemIcon>
                         <HomeRoundedIcon />
-                    </ListItemIcon>
+                    </MyListItemIcon>
                     <ListItemText primary={"Home"}/>
                 </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem>
-                <ListItemButton component={Link} to="" selected={"" === path}>
-                    <ListItemIcon>
+            </MyListItem>
+            <MyListItem>
+                <ListItemButton component={Link} to="/about" selected={"/about" === path}>
+                    <MyListItemIcon>
                         <AutoStoriesRoundedIcon />
-                    </ListItemIcon>
+                    </MyListItemIcon>
                     <ListItemText primary={"About"}/>
                 </ListItemButton>
-            </ListItem>
-            <Divider/>
-            <ListItem>
-                <ListItemButton component={Link} to="" selected={"" === path}>
-                    <ListItemIcon>
+            </MyListItem>
+            <MyListItem>
+                <ListItemButton component={Link} to="/create" selected={"/create" === path}>
+                    <MyListItemIcon>
                         <AddBoxRoundedIcon />
-                    </ListItemIcon>
+                    </MyListItemIcon>
                     <ListItemText primary={"Create"}/>
                 </ListItemButton>
-            </ListItem>
-            {/* {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
-              <ListItem key={text} disablePadding>
-                <ListItemButton>
-                  <ListItemIcon>
-                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                  </ListItemIcon>
-                  <ListItemText primary={text} />
-                </ListItemButton>
-              </ListItem>
-            ))} */}
+            </MyListItem>
           </List>
+          <Divider/>
         </Box>
       </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+      <Box component="main" sx={{ flexGrow: 1, p: 3, marginLeft: `${drawerWidth}px` }}>
         <Toolbar />
-        
+        { content }
       </Box>
     </Box>
   );
