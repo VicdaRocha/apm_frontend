@@ -7,6 +7,9 @@ const MyListItem = styled(ListItem)(() => ({
 
     '& > a': {
         borderRadius: '10px',
+    },
+    '& > a:hover': {
+        backgroundColor: 'rgba(25, 118, 210, 0.22)',
     }
 }))
 

@@ -82,7 +82,7 @@ export default function Navbar(props: {
         position="fixed"
         sx={{
           zIndex: (theme) => theme.zIndex.drawer + 1,
-          borderRadius: {xs: '0', sm:"0px 0px 0px 64px"},
+          borderRadius: {xs: '0', sm:"0px 0px 0px 30px"},
         }}
       >
         <Toolbar>
